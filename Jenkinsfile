@@ -22,7 +22,7 @@ pipeline {
   stages {
     stage('Default Build pointing to Staging DB') {
       steps {
-        sh "mvn clean package -DskipTests -DbuildDirectory=staging/target -DdbUrl=${stagingPostgresDbUrl} -DdbUsername=${postgresDBUserName} -DdbPassword=${postgresDBPassword}"
+        sh "mvn clean package -DskipTests -DbuildDirectory=staging/target -DegaAcccession-db.url=${stagingPostgresDbUrl} -DegaAccession-db.username=${postgresDBUserName} -DegaAcccession-db.password=${postgresDBPassword}"
       }
     }
     stage('Build For FallBack And Production') {
@@ -33,9 +33,9 @@ pipeline {
        }
       steps {
         echo 'Build pointing to FallBack DB'
-        sh "mvn clean package -DskipTests -DbuildDirectory=fallback/target -DdbUrl=${fallBackPostgresDbUrl} -DdbUsername=${postgresDBUserName} -DdbPassword=${postgresDBPassword}"
+        sh "mvn clean package -DskipTests -DbuildDirectory=fallback/target -DegaAcccession-db.url=${fallBackPostgresDbUrl} -DegaAccession-db.username=${postgresDBUserName} -DegaAcccession-db.password=${postgresDBPassword}"
         echo 'Build pointing to Production DB'
-        sh "mvn clean package -DskipTests -DbuildDirectory=production/target -DdbUrl=${productionPostgresDbUrl} -DdbUsername=${postgresDBUserName} -DdbPassword=${postgresDBPassword}"
+        sh "mvn clean package -DskipTests -DbuildDirectory=production/target -DegaAcccession-db.url=${productionPostgresDbUrl} -DegaAccession-db.username=${postgresDBUserName} -DegaAcccession-db.password=${postgresDBPassword}"
        }
      }
     stage('Deploy To Staging') {
