@@ -19,10 +19,12 @@ package uk.ac.ebi.ega.accession.sample.rest;
 
 import uk.ac.ebi.ega.accession.sample.SampleModel;
 
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 public class SampleDTO implements SampleModel {
 
+    @NotNull(message = "Sample properties should not be null")
     private Map<String, String> sampleProperties;
 
     SampleDTO() {

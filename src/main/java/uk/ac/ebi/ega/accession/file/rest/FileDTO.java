@@ -19,8 +19,13 @@ package uk.ac.ebi.ega.accession.file.rest;
 
 import uk.ac.ebi.ega.accession.file.FileModel;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class FileDTO implements FileModel {
 
+    @NotNull(message = "hash value should not be null")
+    @Size(min = 32, max = 32, message = "hash length should be 32 chars")
     private String hash;
 
     FileDTO() {

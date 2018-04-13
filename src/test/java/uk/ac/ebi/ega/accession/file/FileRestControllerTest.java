@@ -47,9 +47,9 @@ public class FileRestControllerTest {
 
     @Test
     public void testRestApi() {
-        FileDTO fileA = new FileDTO("checksumA");
-        FileDTO fileB = new FileDTO("checksumB");
-        FileDTO fileC = new FileDTO("checksumC");
+        FileDTO fileA = new FileDTO("checksumAAAAAAAAAAAAAAAAAAAAAAAA");
+        FileDTO fileB = new FileDTO("checksumBBBBBBBBBBBBBBBBBBBBBBBB");
+        FileDTO fileC = new FileDTO("checksumCCCCCCCCCCCCCCCCCCCCCCCC");
 
         String url = "/v1/file";
         HttpEntity<Object> requestEntity = new HttpEntity<>(Arrays.asList(fileA, fileB, fileC));
@@ -62,9 +62,9 @@ public class FileRestControllerTest {
 
     @Test
     public void requestPostTwiceAndWeGetSameAccessions() {
-        FileDTO fileA = new FileDTO("checksumA");
-        FileDTO fileB = new FileDTO("checksumB");
-        FileDTO fileC = new FileDTO("checksumC");
+        FileDTO fileA = new FileDTO("checksumAAAAAAAAAAAAAAAAAAAAAAAA");
+        FileDTO fileB = new FileDTO("checksumBBBBBBBBBBBBBBBBBBBBBBBB");
+        FileDTO fileC = new FileDTO("checksumCCCCCCCCCCCCCCCCCCCCCCCC");
 
         String url = "/v1/file/";
         HttpEntity<Object> requestEntity = new HttpEntity<>(Arrays.asList(fileA, fileB, fileC));
