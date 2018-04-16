@@ -19,6 +19,7 @@ package uk.ac.ebi.ega.accession.file.persistence;
 
 import uk.ac.ebi.ega.accession.file.FileModel;
 import uk.ac.ebi.ega.accession.file.HashType;
+import uk.ac.ebi.ega.accession.file.rest.ValidHash;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
+@ValidHash
 @Entity
 public class FileEntity implements FileModel {
 

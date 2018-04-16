@@ -43,7 +43,7 @@ public class FileAccessioningRepositoryTest {
     private AccessioningRepository fileAccessioningRepository;
 
     private FileEntity generateFileEntity(int value) {
-        return new FileEntity(HashType.MD5, "file" + value, "file" + value);
+        return new FileEntity(HashType.MD5, "file" + value, "fileAAAAAAAAAAAAAAAAAAAAAAAAAAA" + value);
     }
 
     private Set<FileEntity> generateEntities() {
@@ -81,7 +81,7 @@ public class FileAccessioningRepositoryTest {
         fileAccessioningRepository.save(new FileEntity(HashType.MD5, null, "file1"));
     }
 
-    @Test(expected = org.springframework.dao.DataIntegrityViolationException.class)
+    @Test(expected = org.springframework.transaction.TransactionSystemException.class)
     @Commit
     public void testSavingObjectsWithoutHash() throws Exception {
         fileAccessioningRepository.save(new FileEntity(HashType.MD5, "accession", null));

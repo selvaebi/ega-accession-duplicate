@@ -17,30 +17,31 @@
  */
 package uk.ac.ebi.ega.accession.file.rest;
 
+import uk.ac.ebi.ega.accession.file.FileModel;
 import uk.ac.ebi.ega.accession.file.HashType;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class HashValidator implements ConstraintValidator<ValidHash, FileDTO> {
+public class HashValidator implements ConstraintValidator<ValidHash, FileModel> {
 
     @Override
     public void initialize(ValidHash constraintAnnotation) {
     }
 
     @Override
-    public boolean isValid(FileDTO fileDTO, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(FileModel fileModel, ConstraintValidatorContext constraintValidatorContext) {
 
         constraintValidatorContext.disableDefaultConstraintViolation();
 
-        if (fileDTO.getHashType() == null) {
+        if (fileModel.getHashType() == null) {
             constraintValidatorContext.buildConstraintViolationWithTemplate(
                     "Please provide a hashType.Supported types :MD5,SHA1").addConstraintViolation();
             return false;
         }
 
-        if (fileDTO.getHash() == null || (fileDTO.getHashType() == HashType.MD5 && fileDTO.getHash().length() != 32) ||
-                (fileDTO.getHashType() == HashType.SHA1 && fileDTO.getHash().length() != 40)) {
+        if (fileModel.getHash() == null || (fileModel.getHashType() == HashType.MD5 && fileModel.getHash().length() != 32) ||
+                (fileModel.getHashType() == HashType.SHA1 && fileModel.getHash().length() != 40)) {
             constraintValidatorContext.buildConstraintViolationWithTemplate("Please provide a valid hash")
                     .addConstraintViolation();
             return false;
