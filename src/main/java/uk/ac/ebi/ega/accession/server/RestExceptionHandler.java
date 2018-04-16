@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.WebDataBinder;
@@ -49,7 +50,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   WebRequest request) {
         String error = "Request body provided is not valid";
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error,
-                ex.getBindingResult().getFieldError().getDefaultMessage()));
+                ex.getBindingResult().getGlobalError() != null ? ex.getBindingResult().getGlobalError().getDefaultMessage() :
+                        ex.getBindingResult().getFieldError().getDefaultMessage()));
+    }
+
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+                                                                  HttpHeaders headers, HttpStatus status,
+                                                                  WebRequest request) {
+        String error = "Request body provided is not valid";
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, "Please provide accepted values"));
     }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {

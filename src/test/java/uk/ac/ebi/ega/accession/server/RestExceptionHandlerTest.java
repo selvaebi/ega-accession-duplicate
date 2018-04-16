@@ -27,6 +27,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import uk.ac.ebi.ega.accession.file.HashType;
 import uk.ac.ebi.ega.accession.file.rest.FileDTO;
 import uk.ac.ebi.ega.accession.study.rest.StudyDTO;
 
@@ -44,22 +45,31 @@ public class RestExceptionHandlerTest {
 
     @Test
     public void fileDtoValidation() throws Exception {
-        FileDTO fileA = new FileDTO("checksum");
-
+        FileDTO fileA = new FileDTO(HashType.MD5, "checksum");
+        FileDTO fileB = new FileDTO(HashType.SHA1, "checksumBBBBBBBBBBBBBBBBBBBBBBBB");
         String url = "/v1/file";
+
         HttpEntity<Object> requestEntity = new HttpEntity<>(Arrays.asList(fileA));
-
         ResponseEntity<Map> response = testRestTemplate.exchange(url, HttpMethod.POST, requestEntity, Map.class);
-
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("hash length should be 32 chars", response.getBody().get("debugMessage"));
+        assertEquals("Please provide a valid hash", response.getBody().get("debugMessage"));
 
-        fileA = new FileDTO(null);
+        requestEntity = new HttpEntity<>(Arrays.asList(fileB));
+        response = testRestTemplate.exchange(url, HttpMethod.POST, requestEntity, Map.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Please provide a valid hash", response.getBody().get("debugMessage"));
+
+        fileA = new FileDTO(HashType.MD5, null);
         requestEntity = new HttpEntity<>(Arrays.asList(fileA));
         response = testRestTemplate.exchange(url, HttpMethod.POST, requestEntity, Map.class);
-
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("hash value should not be null", response.getBody().get("debugMessage"));
+        assertEquals("Please provide a valid hash", response.getBody().get("debugMessage"));
+
+        fileA = new FileDTO(null, "checksumBBBBBBBBBBBBBBBBBBBBBBBB");
+        requestEntity = new HttpEntity<>(Arrays.asList(fileA));
+        response = testRestTemplate.exchange(url, HttpMethod.POST, requestEntity, Map.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Please provide a hashType.Supported types :MD5,SHA1", response.getBody().get("debugMessage"));
 
     }
 
