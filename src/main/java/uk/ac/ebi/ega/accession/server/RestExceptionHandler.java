@@ -54,6 +54,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                         ex.getBindingResult().getFieldError().getDefaultMessage()));
     }
 
+    @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status,
                                                                   WebRequest request) {
