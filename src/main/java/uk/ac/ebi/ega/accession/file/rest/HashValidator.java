@@ -36,7 +36,7 @@ public class HashValidator implements ConstraintValidator<ValidHash, FileModel> 
 
         if (fileModel.getHashType() == null) {
             constraintValidatorContext.buildConstraintViolationWithTemplate(
-                    "Please provide a hashType.Supported types :MD5,SHA1").addConstraintViolation();
+                    "Please provide a hashType(Supported Types:MD5,SHA1) and a valid hash").addConstraintViolation();
             return false;
         }
 

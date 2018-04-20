@@ -23,12 +23,14 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import uk.ac.ebi.ampt2d.commons.accession.autoconfigure.EnableBasicRestControllerAdvice;
 import uk.ac.ebi.ega.accession.sample.persistence.SampleAccessioningDatabaseService;
 import uk.ac.ebi.ega.accession.sample.persistence.SampleAccessioningRepository;
 
 @Configuration
 @EntityScan({"uk.ac.ebi.ega.accession.sample.persistence"})
 @EnableJpaRepositories(basePackages = {"uk.ac.ebi.ega.accession.sample.persistence"})
+@EnableBasicRestControllerAdvice
 public class SampleAccesssioningConfiguration {
 
     @Autowired

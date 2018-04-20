@@ -23,6 +23,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import uk.ac.ebi.ampt2d.commons.accession.autoconfigure.EnableBasicRestControllerAdvice;
 import uk.ac.ebi.ega.accession.variant.persistence.VariantAccessioningDatabaseService;
 import uk.ac.ebi.ega.accession.variant.persistence.VariantAccessioningRepository;
 import uk.ac.ebi.ampt2d.commons.accession.autoconfigure.EnableSpringDataContiguousIdService;
@@ -33,6 +34,7 @@ import uk.ac.ebi.ampt2d.commons.accession.persistence.monotonic.service.Contiguo
 @EnableSpringDataContiguousIdService
 @EntityScan({"uk.ac.ebi.ega.accession.variant.persistence"})
 @EnableJpaRepositories(basePackages = {"uk.ac.ebi.ega.accession.variant.persistence"})
+@EnableBasicRestControllerAdvice
 public class VariantAccessioningConfiguration {
 
     @Autowired

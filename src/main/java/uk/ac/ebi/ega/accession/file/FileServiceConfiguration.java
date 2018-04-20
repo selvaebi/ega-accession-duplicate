@@ -23,12 +23,14 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import uk.ac.ebi.ampt2d.commons.accession.autoconfigure.EnableBasicRestControllerAdvice;
 import uk.ac.ebi.ega.accession.file.persistence.FileAccessioningDatabaseService;
 import uk.ac.ebi.ega.accession.file.persistence.FileAccessioningRepository;
 
 @Configuration
 @EntityScan({"uk.ac.ebi.ega.accession.file.persistence"})
 @EnableJpaRepositories(basePackages = {"uk.ac.ebi.ega.accession.file.persistence"})
+@EnableBasicRestControllerAdvice
 public class FileServiceConfiguration {
 
     @Autowired
